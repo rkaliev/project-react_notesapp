@@ -9,11 +9,36 @@ var Note = React.createClass({
 });
 
 var NoteEditor = React.createClass({
+	getInitialState: function() {
+	    return {
+	        text:  ''
+	    };
+	},
+
+	handleTextChange: function(event) {
+		this.setState({ text: event.target.value });
+	},
+
+	handleNoteAdd: function() {
+		var newNote = {
+			text: this.state.text,
+			color: 'yellow',
+			id: Date.now()
+		};
+
+		this.props.onNoteAdd(newNote);
+	},
+
 	render: function() {
 		return (
 			<div className="notes-editor">
-				<textarea placeholder="Enter your note here..." rows={5} className="textarea" />
-				<button className="add-button">Add</button>
+				<textarea 
+					placeholder="Enter your note here..." 
+					rows={5} className="textarea" 
+					value={ this.state.text } 
+					onChange={ this.handleTextChange }
+					/>
+				<button className="add-button" onClick={ this.handleNoteAdd }>Add</button>
 			</div>
 		);
 	}
@@ -43,7 +68,7 @@ var NotesGrid = React.createClass({
 });
 
 var NotesApp = React.createClass({
-	getInitialState() {
+	getInitialState: function() {
 	    return {
 	        notes:  [
 					  {
@@ -103,12 +128,19 @@ var NotesApp = React.createClass({
 					  }]
 	    };
 	},
+
+	handleNoteAdd: function() {
+		var newNotes = this.state.notes.slice();
+		newNotes.unshift(newNotes);
+		this.setState({ notes : newNotes })
+	},
+
 	render: function() {
 		return (
 			<div className="notes-app">
 			<h1>NotesApp</h1>
 				NotesApp
-				<NoteEditor />
+				<NoteEditor onNoteAdd={this.handleNoteAdd} />
 				<NotesGrid  notes = {this.state.notes} />
 			</div>
 		);
