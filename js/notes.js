@@ -1,3 +1,4 @@
+// NOTE
 var Note = React.createClass({
     render: function() {
         var style = { backgroundColor: this.props.color };
@@ -10,6 +11,7 @@ var Note = React.createClass({
     }
 });
 
+// NOTE-EDITOR
 var NoteEditor = React.createClass({
     getInitialState: function() {
         return {
@@ -48,6 +50,7 @@ var NoteEditor = React.createClass({
     }
 });
 
+// NOTE-GRID
 var NotesGrid = React.createClass({
     componentDidMount: function() {
         var grid = this.refs.grid;
@@ -88,6 +91,7 @@ var NotesGrid = React.createClass({
     }
 });
 
+// NOTES-APP
 var NotesApp = React.createClass({
     getInitialState: function() {
         return {
