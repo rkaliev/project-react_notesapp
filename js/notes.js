@@ -45,15 +45,24 @@ var NoteEditor = React.createClass({
 });
 
 var NotesGrid = React.createClass({
-	componentDidMount() {
+
+	componentDidMount: function() {
 		var grid = this.refs.grid;
-	    var elem = document.querySelector('.grid');
-		var msnry = new Masonry( grid, {
+		this.msnry = new Masonry( grid, {
 		  itemSelector: '.note',
 		  columnWidth: 200,
-		  gutter: 10
+		  gutter: 10,
+		  isFitWidth: true
 		});
 	},
+
+	componentDidUpdate: function (prevProps) {
+	    if(this.props.notes.length !== prevProps.notes.length){
+	      	this.msnry.reloadItems();
+	      	this.msnry.layout();
+	      }
+	},
+
 	render: function() {
 		return (
 			<div className="notes-grid" ref="grid">
