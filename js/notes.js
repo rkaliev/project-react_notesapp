@@ -11,7 +11,10 @@ var Note = React.createClass({
 var NoteEditor = React.createClass({
 	render: function() {
 		return (
-			<div className="notes-editor"> NoteEditor </div>
+			<div className="notes-editor">
+				<textarea placeholder="Enter your note here..." rows={5} className="textarea" />
+				<button className="add-button">Add</button>
+			</div>
 		);
 	}
 });
@@ -23,7 +26,7 @@ var NotesGrid = React.createClass({
 		var msnry = new Masonry( grid, {
 		  itemSelector: '.note',
 		  columnWidth: 200,
-		  gutter: 20
+		  gutter: 10
 		});
 	},
 	render: function() {
